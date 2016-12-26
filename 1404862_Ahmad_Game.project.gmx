@@ -20,6 +20,13 @@
     <sprite>sprites\spMusuh3</sprite>
     <sprite>sprites\spMusuh3a</sprite>
     <sprite>sprites\spMusuh4</sprite>
+    <sprite>sprites\spPath</sprite>
+    <sprite>sprites\spHattack</sprite>
+    <sprite>sprites\spHskill</sprite>
+    <sprite>sprites\spSkA</sprite>
+    <sprite>sprites\spSkB</sprite>
+    <sprite>sprites\spLempar</sprite>
+    <sprite>sprites\sprite20</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -32,6 +39,7 @@
     <script>scripts\cadanganAStar.gml</script>
   </scripts>
   <objects name="objects">
+    <object>objects\obHeroBattle</object>
     <object>objects\obHero</object>
     <object>objects\obDinding</object>
     <object>objects\obL1</object>
@@ -39,6 +47,7 @@
     <object>objects\obL3</object>
     <object>objects\obKey</object>
     <object>objects\obPintu</object>
+    <object>objects\obPintuB</object>
     <object>objects\obEnd</object>
     <object>objects\obMusuh1</object>
     <object>objects\obMusuh2</object>
@@ -47,9 +56,24 @@
     <object>objects\obMusuh3</object>
     <object>objects\obPath</object>
     <object>objects\obMusuh4</object>
+    <object>objects\obBoss</object>
+    <object>objects\objStatKeeper</object>
+    <object>objects\objBattleController</object>
+    <object>objects\obLempar</object>
+    <objects name="Parent">
+      <object>objects\objEnemyParent</object>
+      <object>objects\objCharParent</object>
+    </objects>
+    <objects name="Fade">
+      <object>objects\objFade</object>
+    </objects>
+    <object>objects\obL4</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\rTutor</room>
+    <room>rooms\room1easy</room>
+    <room>rooms\room2Normal</room>
+    <room>rooms\room3Hard</room>
+    <room>rooms\roomBoss</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

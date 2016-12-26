@@ -54,6 +54,7 @@ if(found){
 
 //_____POST-ALGOR____
 //destroy datastructures
+
 ds_map_destroy(G);
 ds_map_destroy(H);
 ds_priority_destroy(F);

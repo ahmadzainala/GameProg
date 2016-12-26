@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>-1</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objEnemyParent</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,9 +25,73 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//variable status jalan
-move = random_range(0,4);
-image_speed = 0.2;
+            <string>///Setting up info specific to this monster
+event_inherited(); //Makes it so code from parent comes through
+
+name = "kerbau";
+image_speed = 0.5;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+    //variable status jalan
+    move = random_range(0,4);
+    image_speed = 0.2;
+    stat = 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Default values for enemies
+//Combat stats
+maxHealth = 40;
+currentHealth = maxHealth;
+damage = 10;
+defense = 5;
+maxEnergy = 0;
+currentEnergy = 100;
+maxMana = 70; //mana
+currentMana = 70; //mana
+mAdamage = 5; //magic A
+mBdamage = 5; //magic B
+critical = 0; //critical chance
+
+//Info
+name = "Kerbau";
+XP = 5;
 </string>
           </argument>
         </arguments>
@@ -50,38 +114,66 @@ image_speed = 0.2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//gerak pada jarak tertentu
-if(distance_to_object(obHero) &lt;= 30)
-{
-    sprite_index = spMusuh1a;
-    //gerak ke hero, dengan kecepatan 2, dan sampai ke titik hero / melahap
-    mp_potential_step(obHero.x,obHero.y,3,false);
-}
-else
-{
-    sprite_index = spMusuh1;
-    if(move &lt;= 1) //jika status ke bawah
+            <string>///Movement
+if(!inCombat){
+    //gerak pada jarak tertentu
+    if(distance_to_object(obHero) &lt;= 30)
     {
-        y += 2;
-    }else if(move &lt;= 2 &amp;&amp; move &gt; 1) //jika status ke atas
+        sprite_index = spMusuh1a;
+        //gerak ke hero, dengan kecepatan 3, dan sampai ke titik hero / melahap
+        
+        if(x mod 32 &lt; 3){
+            x = (x div 32) * 32;
+        }else if(x mod 32 &gt; 30){
+            x = ((x + 3) div 32) * 32;
+        }
+        
+        if(x &gt; obHero.x || x &lt; obHero.x){
+            if(x &lt; obHero.x &amp;&amp; place_free(x + 3, y)){
+                x += 3;
+            }else if(x &gt; obHero.x &amp;&amp; place_free(x - 3, y)){
+                x -= 3;
+            }
+        }
+        
+        if(y mod 32 &lt; 3){
+            y = (y div 32) * 32;
+        }else if(y mod 32 &gt; 30){
+            y = ((y + 3) div 32) * 32;
+        }
+        
+        if(y &gt; obHero.y || y &lt; obHero.y){
+            if(y &lt; obHero.y &amp;&amp; place_free(x,y+3)){
+                y += 3;
+            }else if(y &gt; obHero.y &amp;&amp; place_free(x,y-3)){
+                y -= 3;
+            }
+        }
+    }
+    else
     {
-        y -= 2;
-    }else if(move &lt;= 3 &amp;&amp; move &gt;2) //jika status ke kiri
-    {
-        x -= 2;
-        image_xscale = -1;
-    }else //jika ke kanan
-    {
-        image_xscale = 1;
-        x += 2;
+        sprite_index = spMusuh1;
+        if(move &lt;= 1) //jika status ke bawah
+        {
+            y += 2;
+        }else if(move &lt;= 2 &amp;&amp; move &gt; 1) //jika status ke atas
+        {
+            y -= 2;
+        }else if(move &lt;= 3 &amp;&amp; move &gt;2) //jika status ke kiri
+        {
+            x -= 2;
+            image_xscale = -1;
+        }else //jika ke kanan
+        {
+            image_xscale = 1;
+            x += 2;
+        }
     }
 }
 </string>
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="4" ename="obL3">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -98,10 +190,12 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if instance_exists(obL1){
-    x = obL1.x-(sprite_width);
-    y = obL1.y;
-    speed = 0;
+            <string>///Timer musuh
+if(status == false &amp;&amp; currentEnergy &gt; 0)
+{
+    if(currentEnergy &gt; maxEnergy){
+        currentEnergy -= .5;
+    }
 }
 </string>
           </argument>
@@ -125,10 +219,9 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if instance_exists(obL3){
-    x = obL1.x-(sprite_width);
-    y = obL1.y;
-    speed = 0;
+            <string>if instance_exists(obL1){
+    x = obL1.x;
+    y = obL1.y - sprite_height;
 }
 </string>
           </argument>

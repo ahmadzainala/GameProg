@@ -350,10 +350,7 @@
     <instance objName="obDinding" x="576" y="256" name="inst_1D4813FB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obDinding" x="320" y="96" name="inst_CB1DDFAA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obDinding" x="192" y="512" name="inst_B34E94B2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obL1" x="192" y="352" name="inst_844D23A9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obL2" x="128" y="480" name="inst_C9D21CE0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obL3" x="480" y="128" name="inst_70A95EBC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obKey" x="128" y="608" name="inst_3441D105" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obMusuh1" x="768" y="640" name="inst_4FBB8A89" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obMusuh1" x="416" y="256" name="inst_0A0D2A06" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obDinding" x="32" y="768" name="inst_494C27AF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -771,10 +768,7 @@
     <instance objName="obJalanPilih" x="864" y="736" name="inst_4E8335A4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obJalanPilih" x="768" y="64" name="inst_445E6D7D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obJalanPilih" x="736" y="64" name="inst_607B3F6D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obMusuh2" x="640" y="256" name="inst_55E13EB8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obMusuh2" x="832" y="192" name="inst_F9D496E0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obPasir" x="768" y="672" name="inst_3DBD9643" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obMusuh3" x="320" y="224" name="inst_09B76126" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obPasir" x="544" y="64" name="inst_426B6D72" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obPasir" x="256" y="64" name="inst_9053F7B4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obPasir" x="800" y="640" name="inst_14364358" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -926,12 +920,15 @@
     <instance objName="obDinding" x="256" y="32" name="inst_AD5F7D3A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obDinding" x="576" y="32" name="inst_98F54CDE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obDinding" x="640" y="64" name="inst_7EC9D0BC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obMusuh4" x="864" y="160" name="inst_7F4C65D2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obPasir" x="224" y="352" name="inst_8D186FF0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obPasir" x="64" y="128" name="inst_0DD1434B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obPintu" x="96" y="32" name="inst_D4466D4B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objBattleController" x="0" y="0" name="inst_91EBDCF5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obBoss" x="128" y="-96" name="inst_4B4017F3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obMusuh1" x="640" y="320" name="inst_5B05EEC6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obMusuh1" x="64" y="704" name="inst_227E3EF3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obMusuh1" x="928" y="64" name="inst_0419858F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obKey" x="160" y="608" name="inst_2EADE8B3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objStatKeeper" x="64" y="0" name="inst_087FCD87" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obL1" x="960" y="512" name="inst_87F9C218" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

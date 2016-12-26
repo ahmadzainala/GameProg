@@ -25,6 +25,68 @@
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>///Default values for enemies
+//Combat stats
+maxHealth = 100;
+currentHealth = maxHealth;
+damage = 10;
+defense = 10;
+maxEnergy = 0;
+currentEnergy = 100;
+maxMana = 100; //mana
+currentMana = 100; //mana
+mAdamage = 5; //magic A
+mBdamage = 5; //magic B
+critical = 0; //critical chance
+
+//Info
+name = "rubah";
+XP = 5;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Setting up info specific to this monster
+event_inherited(); //Makes it so code from parent comes through
+
+name = "rubah";
+image_speed = 0.5;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>stat = 0;
 image_speed = 0.1;
 </string>
@@ -49,10 +111,37 @@ image_speed = 0.1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (instance_exists(obPintu) &amp;&amp; stat == 0){
+            <string>///Timer musuh
+if(status == false &amp;&amp; currentEnergy &gt; 0)
+{
+    if(currentEnergy &gt; maxEnergy){
+        currentEnergy -= .5;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (distance_to_object(obHero) &lt;= 100){
     sprite_index = spMusuh3a;
     stat = 1;
-    var path=aStarGetPath(x,y,obPintu.x,obPintu.y);
+    var path=aStarGetPath(x,y,obBoss.x - 32,obBoss.y - 32);
     path_start(path,1,0,false);
 }
 

@@ -2,7 +2,6 @@
 
 var debug=true;
 
-if(debug) show_debug_message("____("+string(curX)+","+string(curY)+")_____");
 //add to closed list
 ds_list_add(C,getKey(curX,curY));
 
@@ -46,9 +45,7 @@ for(var i=max(0,curX-1);i<=min(obPath.fieldWidth-1,curX+1);i++){
                     ds_map_replace(H,getKey(i,j),tempH);
                     ds_priority_change_priority(F,getKey(i,j),tempF);
                     ds_map_replace(P,getKey(i,j),getKey(curX,curY));
-                    if(debug)
-                        show_debug_message("Updating ("+string(i)+","+string(j)+") G:"+
-                            string(tempG)+" H:"+string(tempH)+" F:"+string(tempF));   
+                    
                 }
             }else{
                 ds_map_add(G,getKey(i,j),tempG);
@@ -68,10 +65,8 @@ if(!empty)
 if(minF==-1){
     searching=false;
     found=false;
-    if(debug) show_debug_message("No more nodes left :'(");
 }else{
-    if(debug) show_debug_message("Trying ("+string(getKeyX(minF))+
-        ","+string(getKeyY(minF))+")");
+    
     curX=getKeyX(minF);
     curY=getKeyY(minF);
 }
@@ -79,6 +74,4 @@ if(minF==-1){
 if(curX==endX && curY==endY){
     searching=false;
     found=true;
-    if(debug)show_debug_message("You found me :D,"+
-        " I'm the final block");
 }

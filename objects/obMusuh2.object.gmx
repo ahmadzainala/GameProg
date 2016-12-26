@@ -5,10 +5,72 @@
   <visible>-1</visible>
   <depth>-1</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objEnemyParent</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Setting up info specific to this monster
+event_inherited(); //Makes it so code from parent comes through
+
+name = "kancil";
+image_speed = 0.5;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Default values for enemies
+//Combat stats
+maxHealth = 60;
+currentHealth = maxHealth;
+damage = 10;
+defense = 5;
+maxEnergy = 0;
+currentEnergy = 100;
+maxMana = 100; //mana
+currentMana = 100; //mana
+mAdamage = 5; //magic A
+mBdamage = 5; //magic B
+critical = 0; //critical chance
+
+//Info
+name = "kancil";
+XP = 5;
+</string>
+          </argument>
+        </arguments>
+      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -56,28 +118,58 @@ image_speed = 0.2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//gerak pada jarak tertentu
-if(distance_to_object(obHero) &lt;= 5)
+            <string>///Timer musuh
+if(status == false &amp;&amp; currentEnergy &gt; 0)
 {
-    //gerak ke hero, dengan kecepatan 2, dan sampai ke titik hero / melahap
-    mp_potential_step(obHero.x,obHero.y,3,false);
+    if(currentEnergy &gt; maxEnergy){
+        currentEnergy -= .5;
+    }
 }
-else
-{
-    if(move == 1) //jika status ke bawah
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(!inCombat){
+
+    //gerak pada jarak tertentu
+    if(distance_to_object(obHero) &lt;= 4)
     {
-        y += 2;
-    }else if(move == 2) //jika status ke atas
+        //gerak ke hero, dengan kecepatan 2, dan sampai ke titik hero / melahap
+        mp_potential_step(obHero.x,obHero.y,3,false);
+    }
+    else
     {
-        y -= 2;
-    }else if(move == 3) //jika status ke kiri
-    {
-        x -= 2;
-        image_xscale = -1;
-    }else //jika ke kanan
-    {
-        x += 2;
-        image_xscale = 1;
+        if(move == 1) //jika status ke bawah
+        {
+            y += 2;
+        }else if(move == 2) //jika status ke atas
+        {
+            y -= 2;
+        }else if(move == 3) //jika status ke kiri
+        {
+            x -= 2;
+            image_xscale = -1;
+        }else //jika ke kanan
+        {
+            x += 2;
+            image_xscale = 1;
+        }
     }
 }
 </string>
@@ -274,99 +366,90 @@ if(tempY &lt; 0)
     tempY = tempY * (-1);
 }
 
-if(tempX &lt; tempY &amp;&amp; statVertikal == 1) //jika jangkauan vertikal lebih jauh dari horizontal
+if(tempX &lt; tempY ) //jika jangkauan vertikal lebih jauh dari horizontal
 {
-    if (y &lt; obHero.y &amp;&amp; statBawah == 1) //hero ada dibawah
+    if (y &lt; obHero.y &amp;&amp; place_free(x,y+2)) //hero ada dibawah
     {
-        statBawah = 0;
         move = 1; //pilih rute bawah
-    }
-    else if(y &gt; obHero.y &amp;&amp; statAtas == 1) //hero diatas
+    }else if(y &lt; obHero.y &amp;&amp; !place_free(x,y+2))
     {
-        statAtas = 0;
-        move = 2; //rute atas
+        if (x &gt; obHero.x &amp;&amp; place_free(x-2,y)) //hero ada dibawah
+        {
+            move = 3; //pilih rute kiri
+        }
+        else if(x &lt; obHero.y &amp;&amp; place_free(x+2,y)) //hero diatas
+        {
+            move = 4; //rute atas
+        }else
+        {
+            move = move+1;
+        }
     }
-    statVertikal = 0;
-    statHorizontal = 1;
-    statKanan = 1;
-    statKiri = 1;
+    
+    else if(y &gt; obHero.y &amp;&amp; place_free(x,y-2)) //hero diatas
+    {
+        move = 2; //rute atas
+    }else if(y &gt; obHero.y &amp;&amp; !place_free(x,y-2))
+    {
+        if (x &gt; obHero.x &amp;&amp; place_free(x-2,y)) //hero ada dibawah
+        {
+            move = 3; //pilih rute kiri
+        }
+        else if(x &lt; obHero.y &amp;&amp; place_free(x+2,y)) //hero diatas
+        {
+            move = 4; //rute atas
+        }else
+        {
+            move = move+1;
+        }
+    }else
+    {
+        move = move+1;
+    }
 }
-else if(tempX &gt;= tempY &amp;&amp; statHorizontal == 1) //jika jangkauan vertikal lebih jauh dari horizontal
+else //jika jangkauan vertikal lebih jauh dari horizontal
 {
-    if (x &gt; obHero.x &amp;&amp; statKiri == 1) //hero ada dibawah
+    if (x &gt; obHero.x &amp;&amp; place_free(x-2,y)) //hero ada dibawah
     {
         statKiri = 0;
         move = 3; //pilih rute kiri
     }
-    else if(x &lt; obHero.y &amp;&amp; statKanan == 1) //hero diatas
+    else if(x &gt; obHero.x &amp;&amp; !place_free(x-2,y))
     {
-        statKanan = 0;
+        if (y &lt; obHero.y &amp;&amp; place_free(x,y+2)) //hero ada dibawah
+        {
+            move = 1; //pilih rute bawah
+        }
+        else if(y &gt; obHero.y &amp;&amp; place_free(x,y-2)) //hero diatas
+        {
+            move = 2; //rute atas
+        }
+        else
+        {
+            move = move+1;
+        }
+    }
+    else if(x &lt; obHero.y &amp;&amp; place_free(x+2,y)) //hero diatas
+    {
         move = 4; //rute atas
     }
-    statVertikal = 1;
-    statHorizontal = 0;
-    statAtas = 1;
-    statBawah = 1;
-}
-else if (statVertikal == 1 &amp;&amp; statHorizontal == 0) //mentok ga ada jalur terdekat ke kanan/kiri
-{
-    
-    if (statBawah == 1) //hero ada dibawah
+    else if(x &lt; obHero.x &amp;&amp; !place_free(x+2,y))
     {
-        statBawah = 0;
-        move = 1; //pilih rute bawah
-    }else //hero diatas
+        if (y &lt; obHero.y &amp;&amp; place_free(x,y+2)) //hero ada dibawah
+        {
+            move = 1; //pilih rute bawah
+        }
+        else if(y &gt; obHero.y &amp;&amp; place_free(x,y-2)) //hero diatas
+        {
+            move = 2; //rute atas
+        }
+        else
+        {
+            move = move+1;
+        }
+    }else
     {
-        statAtas = 0;
-        move = 2; //rute atas
-    }
-    if(statAtas == 0 &amp;&amp; statBawah == 0){
-        statVertikal = 0;
-        statHorizontal = 1;
-    }
-}
-else if (statHorizontal == 1 &amp;&amp; statVertikal == 0) //mentok ga ada jalur terdekat keatas/kebawah
-{
-    
-    if (statKiri == 1) //hero dikiri
-    {
-        statKiri = 0;
-        move = 3;
-    }
-    else //hero dikanan
-    {
-        statKanan = 0;
-        move = 4;
-    }
-    
-    if(statKiri == 0 &amp;&amp; statKanan ==0)
-    {
-        statHorizontal = 0;
-        statVertikal = 1;        
-    }
-}
-else //awal coba jalur kiri atau kanan
-{
-    show_debug_message("ssssssss");
-    if(statVertikal == 0 &amp;&amp; statHorizontal ==0)
-    {
-        statVertikal = 1;
-        statAtas = 1;
-        statBawah = 1;
-        statHorizontal = 1;
-        statKiri = 1;
-        statKanan = 1;
-    }
-    
-    if (x &gt; obHero.x) //hero dikiri
-    {
-        statKiri = 0;
-        move = 3;
-    }
-    else //hero dikanan
-    {
-        statKanan = 0;
-        move = 4;
+        move = move+1;
     }
 }
 </string>
